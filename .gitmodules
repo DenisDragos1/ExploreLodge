@@ -1,0 +1,3 @@
+[submodule "ExploreLodgeFrontend"]
+	path = ExploreLodgeFrontend
+	url = https://github.com/DenisDragos1/ExploreLodgeFrontend.git
