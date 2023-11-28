@@ -12,17 +12,22 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin("http://localhost:5173")
 @RequestMapping("api/users")
 public class UsersController {
+
     @Autowired
     private UserService userService;
+
     @PostMapping(path = "/save")
-    public String saveUser(@RequestBody UserDto userDto)
-    {
-        String ID = userService.addUser(userDto);
-        return ID;
+    public ResponseEntity<String> saveUser(@RequestBody UserDto userDto) {
+        try {
+            String ID = userService.addUser(userDto);
+            return ResponseEntity.ok("Userul a fost înregistrat cu succes. ID: " + ID);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("A apărut o eroare înregistrând utilizatorul: " + e.getMessage());
+        }
     }
+
     @PostMapping(path = "/login")
-    public ResponseEntity<?> loginUser(@RequestBody LoginDto loginDTO)
-    {
+    public ResponseEntity<LoginMesage> loginUser(@RequestBody LoginDto loginDTO) {
         LoginMesage loginResponse = userService.loginMesage(loginDTO);
         return ResponseEntity.ok(loginResponse);
     }
